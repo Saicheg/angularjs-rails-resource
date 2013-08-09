@@ -309,7 +309,11 @@
             };
 
             RailsResource.prototype.update = function () {
-                return this.$put(this.$url(), this);
+                <% if Rails.version[0].to_i >= 4 %>
+                  return this.$patch(this.$url(), this);
+                <%  else %>
+                  return this.$put(this.$url(), this);
+                <% end %>
             };
 
             RailsResource.prototype.isNew = function () {
